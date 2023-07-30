@@ -15,10 +15,10 @@ public class Agent : MonoBehaviour
     {
         GameObject contentTarget = GameObject.Find("ContentTarget");
         target = new List<Transform>();
-        for(int i=0; i<contentTarget.transform.childCount; i++) {
+        Debug.LogWarning("contentTarget.transform.childCount" + contentTarget.transform.childCount);
+        for (int i=0; i<contentTarget.transform.childCount; i++) {
             target.Add(contentTarget.transform.GetChild(i).transform);
         }
-
         itPosition = 0;
         ShuffleArray.Shuffle(target);
     }
@@ -31,8 +31,10 @@ public class Agent : MonoBehaviour
 
     public void Move() {
         navAgent.SetDestination(target[itPosition].position);
-        if(Vector3.Distance(target[itPosition].position, this.transform.position) < 1) {
+            Debug.Log("Distance: " + Vector3.Distance(target[itPosition].position, this.transform.position));
+        if(Vector3.Distance(target[itPosition].position, this.transform.position) < 2f) { // si la distancia mínima no se cumple los personajes instanciados dejan de moverse hacia todos los targets y se quedan en el primer target que se les asigna al azar.
             itPosition++;
+            Debug.Log("position: " + itPosition);
             if(itPosition >= target.Count - 1) {
                 itPosition = 0;
                 ShuffleArray.Shuffle(target);
