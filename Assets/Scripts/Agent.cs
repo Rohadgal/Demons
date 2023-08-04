@@ -15,7 +15,7 @@ public class Agent : MonoBehaviour
     {
         GameObject contentTarget = GameObject.Find("ContentTarget");
         target = new List<Transform>();
-        Debug.LogWarning("contentTarget.transform.childCount" + contentTarget.transform.childCount);
+        //Debug.LogWarning("contentTarget.transform.childCount" + contentTarget.transform.childCount);
         for (int i=0; i<contentTarget.transform.childCount; i++) {
             target.Add(contentTarget.transform.GetChild(i).transform);
         }
