@@ -1,36 +1,29 @@
-    using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    //Transform target;
-    //public GameObject prefabCubanGuy;
-    
+    [SerializeField]
+    GameObject bulletPrefab;
+    GameObject tempBullet;
+    float timer;
+    bool canShoot;
+
     private void OnTriggerEnter(Collider other){
-        //Transform closestTarget = null;
-        //if(Vector3.Distance(this.transform.position, other.transform.position) < Vector3.Distance(this.transform.position, closestTarget.position)){
-            //closestTarget = other.transform;
+        if (!other.CompareTag("Ground")) {
             transform.LookAt(other.transform.position);
-       // }
-    }
-    
-
-    /*void lookAt(){
-         int count = 0;
-        foreach(GameObject temp in poolMutantPrefab){
-            count++;
-            if(!temp.activeSelf){
-                temp.SetActive(true);
-                return temp;
+            if (canShoot) {
+                tempBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                canShoot = false;
             }
-
-            if (count >= poolMutantPrefab.Count - 1){
-                Debug.LogError("Hasta aquí llegaste");
-            }
+            Destroy(tempBullet, 5f);
         }
-        return null;
-        
-        Transform.lookAt(target)
-    }*/
+    }
+
+    private void Update() {
+        timer += Time.deltaTime;
+        if(timer >= 5f) {
+            canShoot = true;
+            timer = 0f;
+        }
+    }
 }
