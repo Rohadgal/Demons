@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -31,10 +30,10 @@ public class Agent : MonoBehaviour
 
     public void Move() {
         navAgent.SetDestination(target[itPosition].position);
-            Debug.Log("Distance: " + Vector3.Distance(target[itPosition].position, this.transform.position));
+           // Debug.Log("Distance: " + Vector3.Distance(target[itPosition].position, this.transform.position));
         if(Vector3.Distance(target[itPosition].position, this.transform.position) < 2f) { // si la distancia mínima no se cumple los personajes instanciados dejan de moverse hacia todos los targets y se quedan en el primer target que se les asigna al azar.
             itPosition++;
-            Debug.Log("position: " + itPosition);
+            //Debug.Log("position: " + itPosition);
             if(itPosition >= target.Count - 1) {
                 itPosition = 0;
                 ShuffleArray.Shuffle(target);
